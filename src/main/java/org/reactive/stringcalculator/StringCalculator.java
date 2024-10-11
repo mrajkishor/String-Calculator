@@ -1,4 +1,6 @@
 package org.reactive.stringcalculator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringCalculator {
         public int add(String numbers) {
@@ -14,10 +16,20 @@ public class StringCalculator {
             }
 
             String[] numberArray = numbers.split(delimiter);
+            List<Integer> negativeNumbers = new ArrayList<>();
             int sum = 0;
             for (String num : numberArray) {
-                sum += Integer.parseInt(num);
+                int number = Integer.parseInt(num.trim());
+                if (number < 0) {
+                    negativeNumbers.add(number);
+                }
+                sum += number;
             }
+
+            if (!negativeNumbers.isEmpty()) {
+                throw new IllegalArgumentException("Negative numbers not allowed: " + negativeNumbers);
+            }
+
             return sum;
         }
 }
